@@ -1,0 +1,15 @@
+<html>
+
+<body>
+    <a href="/items/{{id-1}}">Prev</a>
+    <a href="/items/{{id+1}}">Next</a>
+    <h1> Notes </h1>
+    {% for note in notes %}
+    <h1> {{ note.title }} </h1>
+    {{ note.html|safe }}
+    {% endfor %}
+    <a href="/items/{{id-1}}">Prev</a>
+    <a href="/items/{{id+1}}">Next</a>
+</body>
+
+</html>

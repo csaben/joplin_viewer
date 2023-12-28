@@ -1,0 +1,8 @@
+joppy
+python-dotenv
+marko
+exchangelib
+fastapi
+uvicorn
+starlette
+pydantic
