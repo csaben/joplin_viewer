@@ -23,7 +23,7 @@ def get_cached_model_notes():
 
 @app.get("/api")
 def read_root_api():
-    return get_cached_model_notes()[0]
+    return get_cached_model_notes()[:-5]
 
 
 @app.get("/refresh")
