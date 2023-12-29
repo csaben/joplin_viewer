@@ -6,3 +6,4 @@ fastapi
 uvicorn
 starlette
 pydantic
+fastapi-cache

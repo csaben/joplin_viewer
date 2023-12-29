@@ -22,5 +22,8 @@ class ViewerNoteModel(BaseModel):
     @classmethod
     def from_viewer_note(cls, note: ViewerNote):
         return cls(
-            id=note.id, title=note.title, body=note.body, html=htmlify(str(note.body))
+            id=str(note.id),
+            title=str(note.title),
+            body=str(note.body),
+            html=htmlify(str(note.body)),
         )

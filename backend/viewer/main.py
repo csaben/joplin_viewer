@@ -1,15 +1,35 @@
 from fastapi import FastAPI  # type: ignore
+
 from viewer.api import api, get_all_dated_notes, get_all_viewer_pydantic_notes
 
 app = FastAPI()
 
+# Cache dictionary
+cache: dict = {}
 
-@app.get("/api")
-def read_root_api():
+
+def fetch_model_notes():
     notes = api.get_all_notes(fields="id,title,body")
     dated_notes = get_all_dated_notes(notes)
     model_notes = get_all_viewer_pydantic_notes(dated_notes)
     return model_notes
+
+
+def get_cached_model_notes():
+    if "model_notes" not in cache:
+        cache["model_notes"] = fetch_model_notes()
+    return cache["model_notes"]
+
+
+@app.get("/api")
+def read_root_api():
+    return get_cached_model_notes()[0]
+
+
+@app.get("/refresh")
+def refresh_cache():
+    cache["model_notes"] = fetch_model_notes()
+    return {"message": "Cache refreshed"}
 
 
 # if only using backend, no react frontend:
