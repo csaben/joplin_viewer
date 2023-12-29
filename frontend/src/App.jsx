@@ -3,8 +3,14 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Typography, CssBaseline, AppBar, Toolbar } from '@mui/material';
 
-//functional component
-function App() {
+import useStyles from './styles.js';
+
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+const theme = createTheme();
+
+function AppContent() {
+  const classes = useStyles();
   const [notes, setNotes] = useState([]);
 
   useEffect(() => {
@@ -18,22 +24,27 @@ function App() {
 
   return notes.map((note) => {
     return (
-      <>
-        <CssBaseline />
-        <AppBar position="relative">
-          <Toolbar>
-            <Typography variant="h6">Joplin Notes Viewer</Typography>
-          </Toolbar>
-        </AppBar>
-        <main>
-          <div>
-            <Typography variant="h4">{note.title}</Typography>
-            <div dangerouslySetInnerHTML={{ __html: note.html }}></div>
-          </div>
-        </main>
-      </>
+      <div className={classes.container}>
+        <Typography variant="h4">{note.title}</Typography>
+        <div dangerouslySetInnerHTML={{ __html: note.html }}></div>
+      </div>
     )
   })
+}
+
+//functional component
+function App() {
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6">Notes</Typography>
+        </Toolbar>
+      </AppBar>
+      <AppContent />
+    </ThemeProvider>
+  );
 }
 
 
