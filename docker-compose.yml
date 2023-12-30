@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    networks:
+      - backtofront
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - backtofront
+
+networks:
+  backtofront:
+
+# need to have downloaded docker-compose
+# then run:
+# docker-compose up
+# and then go to localhost:3000
